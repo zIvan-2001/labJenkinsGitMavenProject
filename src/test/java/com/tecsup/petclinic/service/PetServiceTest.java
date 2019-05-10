@@ -46,40 +46,6 @@ public class PetServiceTest {
 
 	}
 	
-	/**
-	 * 
-	 */
-	@Test
-	public void testFindPetByName() {
-		
-		String FIND_NAME = "Leo"; 
-		int SIZE_EXPECTED = 1;
-		
-		List<Pet> pets = petService.findByName(FIND_NAME);
-		
-		Assert.assertEquals(SIZE_EXPECTED, pets.size());
-	}
 
-	
-	/**
-	 * 
-	 */
-	@Test
-	public void testCreatePet() {
-		
-		String PET_NAME ="Ponky"; 
-		int OWNER_ID = 1; 
-		int TYPE_ID = 1; 
-		
-		Pet pet = new Pet(PET_NAME, 1, 1);
-		pet = petService.create(pet);
-		logger.info(""+pet);
-		
-		assertThat(pet.getId()).isNotNull();
-		assertEquals(PET_NAME, pet.getName());
-		assertEquals(OWNER_ID, pet.getOwner_id());
-		assertEquals(TYPE_ID, pet.getType_id());
-		
-	}
 
 }
