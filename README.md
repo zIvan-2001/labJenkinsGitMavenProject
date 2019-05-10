@@ -1,3 +1,3 @@
 # Application PetClinic
 
-## This applicacion uses Springboot 
+## This applicacion uses Spring Boot 
