@@ -69,4 +69,6 @@ public class PetService2Test {
 		logger.info(genPet.toString());
 
 	}
+	
+	
 }
