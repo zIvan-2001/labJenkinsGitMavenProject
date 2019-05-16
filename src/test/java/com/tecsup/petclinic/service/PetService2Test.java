@@ -2,6 +2,9 @@ package com.tecsup.petclinic.service;
 
 import java.util.List;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+ 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,13 +17,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.tecsup.petclinic.domain.Pet;
+import com.tecsup.petclinic.domain.PetRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 public class PetService2Test {
 
-	 
+	
 	private static final Logger logger = LoggerFactory.getLogger(PetService2Test.class);
 
 	
@@ -47,5 +51,22 @@ public class PetService2Test {
 		
 		Assert.assertEquals(SIZE_EXPECTED, pets.size());
 		
+	}
+	
+	/**
+	 *  To get ID generate , you need 
+	 *  setup in id primary key in your
+	 *  entity this annotation :
+	 *  	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	 */
+	@Test
+	public void testCreatePet() {
+		
+		Pet newPet = new Pet("Kabul",1,1);
+		
+		Pet genPet = petService.create(newPet);
+		
+		logger.info(genPet.toString());
+
 	}
 }
