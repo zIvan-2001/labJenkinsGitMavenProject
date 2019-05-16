@@ -1,10 +1,13 @@
 package com.tecsup.petclinic.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
- 
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,5 +73,41 @@ public class PetService2Test {
 
 	}
 	
-	
+	@Test
+	public void testUpdatePet() {
+
+		String PET_NAME = "Bear";
+		int OWNER_ID = 1;
+		int TYPE_ID = 1;
+		long create_id = -1;
+
+		String UP_PET_NAME = "Bear2";
+		int UP_OWNER_ID = 2;
+		int UP_TYPE_ID = 2;
+
+		Pet pet = new Pet(PET_NAME, OWNER_ID, TYPE_ID);
+
+		// Create record
+		logger.info(">" + pet);
+		Pet vpet = petService.create(pet);
+		logger.info(">>" + pet);
+
+		create_id = pet.getId();
+
+		// Prepare data for update
+		vpet.setName(UP_PET_NAME);
+		vpet.setOwner_id(UP_OWNER_ID);
+		vpet.setType_id(UP_TYPE_ID);
+
+		// Execute update
+		pet = petService.update(pet);
+		logger.info(">>>>" + pet);
+
+		assertThat(pet.getId()).isNotNull();
+		assertEquals(create_id, vpet.getId());
+		assertEquals(UP_PET_NAME, vpet.getName());
+		assertEquals(UP_OWNER_ID, vpet.getType_id());
+		assertEquals(UP_TYPE_ID, vpet.getOwner_id());
+ 
+	}
 }
