@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
+ 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,25 +89,25 @@ public class PetService2Test {
 
 		// Create record
 		logger.info(">" + pet);
-		Pet vpet = petService.create(pet);
-		logger.info(">>" + pet);
+		Pet readPet = petService.create(pet);
+		logger.info(">>" + readPet);
 
-		create_id = pet.getId();
+		create_id = readPet.getId();
 
 		// Prepare data for update
-		vpet.setName(UP_PET_NAME);
-		vpet.setOwner_id(UP_OWNER_ID);
-		vpet.setType_id(UP_TYPE_ID);
+		readPet.setName(UP_PET_NAME);
+		readPet.setOwner_id(UP_OWNER_ID);
+		readPet.setType_id(UP_TYPE_ID);
 
 		// Execute update
-		pet = petService.update(pet);
-		logger.info(">>>>" + pet);
+		Pet upgradePet = petService.update(readPet);
+		logger.info(">>>>" + upgradePet);
 
-		assertThat(pet.getId()).isNotNull();
-		assertEquals(create_id, vpet.getId());
-		assertEquals(UP_PET_NAME, vpet.getName());
-		assertEquals(UP_OWNER_ID, vpet.getType_id());
-		assertEquals(UP_TYPE_ID, vpet.getOwner_id());
- 
+		assertThat(create_id).isNotNull();
+		assertEquals(create_id, upgradePet.getId());
+		assertEquals(UP_PET_NAME, upgradePet.getName());
+		assertEquals(UP_OWNER_ID, upgradePet.getType_id());
+		assertEquals(UP_TYPE_ID, upgradePet.getOwner_id());
+
 	}
 }
