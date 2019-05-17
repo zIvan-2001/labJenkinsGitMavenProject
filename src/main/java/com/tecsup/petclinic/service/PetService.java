@@ -26,23 +26,10 @@ public class PetService {
 
 	/**
 	 * 
-	 * @param id
-	 * @return
-	 */
-	public Pet findById(Long id) {
-
-		Optional<Pet> pet = petRepository.findById(id);
-
-		return pet.get();
-	}
-
-	/**
-	 * 
 	 * @param pet
 	 * @return
 	 */
 	public Pet create(Pet pet) {
-
 		return petRepository.save(pet);
 	}
 
@@ -52,7 +39,6 @@ public class PetService {
 	 * @return
 	 */
 	public Pet update(Pet pet) {
-
 		return petRepository.save(pet);
 	}
 
@@ -71,6 +57,18 @@ public class PetService {
 
 	/**
 	 * 
+	 * @param id
+	 * @return
+	 */
+	public Pet findById(long id) {
+
+		Optional<Pet> pet = petRepository.findById(id);
+
+		return pet.get();
+	}
+
+	/**
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -78,9 +76,48 @@ public class PetService {
 
 		List<Pet> pets = petRepository.findByName(name);
 
-		pets.stream().forEach(pet -> logger.debug("" + pet));
+		pets.stream().forEach(pet -> logger.info("" + pet));
 
 		return pets;
 	}
+
+	/**
+	 * 
+	 * @param typeId
+	 * @return
+	 */
+	public List<Pet> findByTypeId(int typeId) {
+
+		List<Pet> pets = petRepository.findByTypeId(typeId);
+
+		pets.stream().forEach(pet -> logger.info("" + pet));
+
+		return pets;
+	}
+
+	/**
+	 * 
+	 * @param ownerId
+	 * @return
+	 */
+	public List<Pet> findByOwnerId(int ownerId) {
+
+		List<Pet> pets = petRepository.findByOwnerId(ownerId);
+
+		pets.stream().forEach(pet -> logger.info("" + pet));
+
+		return pets;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Iterable<Pet> findAll() {
+		
+		// TODO Auto-generated 
+		return petRepository.findAll();
 	
+	}
+
 }

@@ -2,6 +2,7 @@ package com.tecsup.petclinic.domain;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,15 +12,16 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public interface PetRepository extends CrudRepository<Pet, Long> {
+//public interface PetRepository extends CrudRepository<Pet, Long> {
+public interface PetRepository extends JpaRepository<Pet, Long> {
 
-	// Fetch cars by name
+	// Fetch pets by name
 	List<Pet> findByName(String name);
 
-	// Fetch cars by owner_id
-	//List<Pet> findByType_id(String owner_id);
+	// Fetch pets by typeId
+	List<Pet> findByTypeId(int typeId);
 
-	// Fetch cars by owner_id
-	//List<Pet> findByOwner_id(int owner_id);
+	// Fetch pets by ownerId
+	List<Pet> findByOwnerId(int ownerId);
 
 }
