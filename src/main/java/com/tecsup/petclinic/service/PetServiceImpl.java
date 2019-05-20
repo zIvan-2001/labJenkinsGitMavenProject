@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tecsup.petclinic.domain.Pet;
 import com.tecsup.petclinic.domain.PetRepository;
+import com.tecsup.petclinic.exception.PetNotFoundException;
 
 /**
  * 
@@ -17,9 +18,9 @@ import com.tecsup.petclinic.domain.PetRepository;
  *
  */
 @Service
-public class PetService {
+public class PetServiceImpl implements PetService {
 
-	private static final Logger logger = LoggerFactory.getLogger(PetService.class);
+	private static final Logger logger = LoggerFactory.getLogger(PetServiceImpl.class);
 
 	@Autowired
 	PetRepository petRepository;
@@ -29,6 +30,7 @@ public class PetService {
 	 * @param pet
 	 * @return
 	 */
+	@Override
 	public Pet create(Pet pet) {
 		return petRepository.save(pet);
 	}
@@ -38,21 +40,23 @@ public class PetService {
 	 * @param pet
 	 * @return
 	 */
+	@Override
 	public Pet update(Pet pet) {
 		return petRepository.save(pet);
 	}
 
+
 	/**
 	 * 
 	 * @param id
-	 * @return
+	 * @throws PetNotFoundException
 	 */
-	public Pet delete(Long id) {
+	@Override
+	public void delete(Long id) throws PetNotFoundException{
 
 		Pet pet = findById(id);
 		petRepository.delete(pet);
 
-		return pet;
 	}
 
 	/**
@@ -60,10 +64,14 @@ public class PetService {
 	 * @param id
 	 * @return
 	 */
-	public Pet findById(long id) {
+	@Override
+	public Pet findById(long id) throws PetNotFoundException {
 
 		Optional<Pet> pet = petRepository.findById(id);
 
+		if ( !pet.isPresent())
+			throw new PetNotFoundException("Record not found...!");
+			
 		return pet.get();
 	}
 
@@ -72,6 +80,7 @@ public class PetService {
 	 * @param name
 	 * @return
 	 */
+	@Override
 	public List<Pet> findByName(String name) {
 
 		List<Pet> pets = petRepository.findByName(name);
@@ -86,6 +95,7 @@ public class PetService {
 	 * @param typeId
 	 * @return
 	 */
+	@Override
 	public List<Pet> findByTypeId(int typeId) {
 
 		List<Pet> pets = petRepository.findByTypeId(typeId);
@@ -100,6 +110,7 @@ public class PetService {
 	 * @param ownerId
 	 * @return
 	 */
+	@Override
 	public List<Pet> findByOwnerId(int ownerId) {
 
 		List<Pet> pets = petRepository.findByOwnerId(ownerId);
@@ -113,6 +124,7 @@ public class PetService {
 	 * 
 	 * @return
 	 */
+	@Override
 	public Iterable<Pet> findAll() {
 		
 		// TODO Auto-generated 

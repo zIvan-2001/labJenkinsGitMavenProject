@@ -2,9 +2,11 @@ package com.tecsup.petclinic.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.List;
-import org.junit.Assert;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.tecsup.petclinic.domain.Pet;
+import com.tecsup.petclinic.exception.PetNotFoundException;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -35,11 +38,16 @@ public class PetServiceTest {
 
 		long ID = 1;
 		String NAME = "Leo";
-
-		Pet pet = petService.findById(ID);
+		Pet pet = null;
+		
+		try {
+			pet = petService.findById(ID);
+		} catch (PetNotFoundException e) {
+			fail(e.getMessage());
+		}
 		logger.info("" + pet);
 
-		Assert.assertEquals(NAME, pet.getName());
+		assertEquals(NAME, pet.getName());
 
 	}
 
@@ -54,7 +62,7 @@ public class PetServiceTest {
 
 		List<Pet> pets = petService.findByName(FIND_NAME);
 
-		Assert.assertEquals(SIZE_EXPECTED, pets.size());
+		assertEquals(SIZE_EXPECTED, pets.size());
 	}
 
 	/**
@@ -68,7 +76,7 @@ public class PetServiceTest {
 
 		List<Pet> pets = petService.findByTypeId(TYPE_ID);
 
-		Assert.assertEquals(SIZE_EXPECTED, pets.size());
+		assertEquals(SIZE_EXPECTED, pets.size());
 	}
 
 	/**
@@ -82,7 +90,7 @@ public class PetServiceTest {
 
 		List<Pet> pets = petService.findByOwnerId(OWNER_ID);
 
-		Assert.assertEquals(SIZE_EXPECTED, pets.size());
+		assertEquals(SIZE_EXPECTED, pets.size());
 	}
 
 	/**
@@ -149,4 +157,33 @@ public class PetServiceTest {
 		assertEquals(UP_TYPE_ID, upgradePet.getOwnerId());
 	}
 
+	/**
+	 * 
+	 */
+	@Test
+	public void testDeletePet() {
+
+		String PET_NAME = "Bird";
+		int OWNER_ID = 1;
+		int TYPE_ID = 1;
+
+		Pet pet = new Pet(PET_NAME, OWNER_ID, TYPE_ID);
+		pet = petService.create(pet);
+		logger.info("" + pet);
+
+		try {
+			petService.delete(pet.getId());
+		} catch (PetNotFoundException e) {
+			fail(e.getMessage());
+		}
+			
+		try {
+			petService.findById(pet.getId());
+			assertTrue(false);
+		} catch (PetNotFoundException e) {
+			assertTrue(true);
+		} 
+				
+
+	}
 }
