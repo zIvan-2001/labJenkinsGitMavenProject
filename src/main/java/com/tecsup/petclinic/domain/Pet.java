@@ -35,8 +35,8 @@ public class Pet {
 	private int ownerId;
 
 	//@Temporal(TemporalType.DATE)
-	//@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "birth_date")
 	private Date birthDate;
 
