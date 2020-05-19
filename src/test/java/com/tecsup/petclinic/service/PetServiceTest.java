@@ -41,7 +41,9 @@ public class PetServiceTest {
 		Pet pet = null;
 		
 		try {
+			
 			pet = petService.findById(ID);
+			
 		} catch (PetNotFoundException e) {
 			fail(e.getMessage());
 		}
@@ -182,8 +184,7 @@ public class PetServiceTest {
 			assertTrue(false);
 		} catch (PetNotFoundException e) {
 			assertTrue(true);
-		} 
-				
+		} 				
 
 	}
 }
