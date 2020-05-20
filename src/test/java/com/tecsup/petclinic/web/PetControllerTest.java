@@ -1,6 +1,7 @@
 package com.tecsup.petclinic.web;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -48,14 +49,14 @@ public class PetControllerTest {
 	@Test
 	public void testGetPets() throws Exception {
 
-		// int NRO_RECORD = 73;
+		//int NRO_RECORD = 73;
 		int ID_FIRST_RECORD = 1;
 
 		this.mockMvc.perform(get("/pets"))
 					.andExpect(status().isOk())
 					.andExpect(content()
 					.contentType(MediaType.APPLICATION_JSON_UTF8))
-				// .andExpect(jsonPath("$", hasSize(NRO_RECORD)))
+		//		    .andExpect(jsonPath("$", hasSize(NRO_RECORD)))
 					.andExpect(jsonPath("$[0].id", is(ID_FIRST_RECORD)));
 
 	}
