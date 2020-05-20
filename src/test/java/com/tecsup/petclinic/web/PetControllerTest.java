@@ -37,15 +37,11 @@ import com.tecsup.petclinic.domain.Pet;
 public class PetControllerTest {
 
     private static final ObjectMapper om = new ObjectMapper();
-
     
 	@Autowired
 	private MockMvc mockMvc;
 
-	/**
-	 * 
-	 * @throws Exception
-	 */
+
 	@Test
 	public void testGetPets() throws Exception {
 
@@ -58,8 +54,8 @@ public class PetControllerTest {
 					.contentType(MediaType.APPLICATION_JSON_UTF8))
 		//		    .andExpect(jsonPath("$", hasSize(NRO_RECORD)))
 					.andExpect(jsonPath("$[0].id", is(ID_FIRST_RECORD)));
-
 	}
+	
 
 	/**
 	 * 
@@ -80,10 +76,9 @@ public class PetControllerTest {
 				.andExpect(jsonPath("$.id", is(1)))
 				.andExpect(jsonPath("$.name", is(NAME_PET)))
 				.andExpect(jsonPath("$.typeId", is(TYPE_ID)))
-				.andExpect(jsonPath("$.ownerId", is(OWNER_ID)));
-				//.andExpect(jsonPath("$.birthDate", is(new SimpleDateFormat("yyyy-MM-dd").format(DATE))));
-
-
+				.andExpect(jsonPath("$.ownerId", is(OWNER_ID)))
+				//.andExpect(jsonPath("$.birthDate", is("2000-09-07")));
+				.andExpect(jsonPath("$.birthDate", is(new SimpleDateFormat("yyyy-MM-dd").format(DATE))));
 
 	}
 
@@ -109,7 +104,7 @@ public class PetControllerTest {
     	String NAME_PET = "Beethoven";
 		int TYPE_ID = 1;
 		int OWNER_ID = 1;
-		Date DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2019-05-20");
+		Date DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2020-05-20");
 		
 		Pet newPet = new Pet(NAME_PET, TYPE_ID, OWNER_ID, DATE);
 	
@@ -121,8 +116,8 @@ public class PetControllerTest {
 	            //.andExpect(jsonPath("$.id", is(1)))
 	            .andExpect(jsonPath("$.name", is(NAME_PET)))
 	            .andExpect(jsonPath("$.typeId", is(TYPE_ID)))
-	            .andExpect(jsonPath("$.ownerId", is(OWNER_ID)));
-	    		//.andExpect(jsonPath("$.birthDate", is(new SimpleDateFormat("yyyy-MM-dd").format(DATE))));
+	            .andExpect(jsonPath("$.ownerId", is(OWNER_ID)))
+	    		.andExpect(jsonPath("$.birthDate", is(new SimpleDateFormat("yyyy-MM-dd").format(DATE))));
     
 	}
 
@@ -136,7 +131,7 @@ public class PetControllerTest {
     	String NAME_PET = "Beethoven3";
 		int TYPE_ID = 1;
 		int OWNER_ID = 1;
-		Date DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2019-05-20");
+		Date DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2020-05-20");
 		
 		Pet newPet = new Pet(NAME_PET, TYPE_ID, OWNER_ID, DATE);
 		
