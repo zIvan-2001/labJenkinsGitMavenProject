@@ -69,7 +69,7 @@ public class PetControllerTest {
 		int OWNER_ID = 1;
 		Date DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2000-09-07");
 
-		mockMvc.perform(get("/pets/1"))
+		mockMvc.perform(get("/pets/1"))  // Object must be BASIL 
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
 				//.andDo(print())
 				.andExpect(status().isOk())
