@@ -46,7 +46,7 @@ public class PetControllerTest {
 	public void testGetPets() throws Exception {
 
 		//int NRO_RECORD = 73;
-		int ID_FIRST_RECORD = 1;
+		int ID_FIRST_RECORD = 1
 
 		this.mockMvc.perform(get("/pets"))
 					.andExpect(status().isOk())
