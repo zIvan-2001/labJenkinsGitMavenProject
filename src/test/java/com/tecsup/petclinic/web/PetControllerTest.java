@@ -14,6 +14,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -26,6 +27,7 @@ import com.tecsup.petclinic.domain.Pet;
 /**
  * 
  */
+@AutoConfigureMockMvc
 @SpringBootTest
 public class PetControllerTest {
 
@@ -34,7 +36,7 @@ public class PetControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
-
+	
 	@Test
 	public void testGetPets() throws Exception {
 
@@ -43,8 +45,7 @@ public class PetControllerTest {
 
 		this.mockMvc.perform(get("/pets"))
 					.andExpect(status().isOk())
-					.andExpect(content()
-					.contentType(MediaType.APPLICATION_JSON_UTF8))
+					.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 		//		    .andExpect(jsonPath("$", hasSize(NRO_RECORD)))
 					.andExpect(jsonPath("$[0].id", is(ID_FIRST_RECORD)));
 	}
@@ -63,7 +64,7 @@ public class PetControllerTest {
 		Date DATE = new SimpleDateFormat("yyyy-MM-dd").parse("2000-09-07");
 
 		mockMvc.perform(get("/pets/1"))  // Object must be BASIL 
-				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				//.andDo(print())
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id", is(1)))
@@ -86,12 +87,12 @@ public class PetControllerTest {
 				.andExpect(status().isNotFound());
 
 	}
-
+	
 	/**
-	 * 
 	 * @throws Exception
 	 */
-    @Test
+	
+	@Test
     public void testCreatePet() throws Exception {
 		
     	String NAME_PET = "Beethoven";
@@ -113,11 +114,13 @@ public class PetControllerTest {
 	    		.andExpect(jsonPath("$.birthDate", is(new SimpleDateFormat("yyyy-MM-dd").format(DATE))));
     
 	}
+    
 
     /**
      * 
      * @throws Exception
      */
+    
     @Test
     public void testDeletePet() throws Exception {
 
@@ -139,8 +142,9 @@ public class PetControllerTest {
 		Integer id = JsonPath.parse(response).read("$.id");
 
         mockMvc.perform(delete("/pets/" + id ))
-                /*.andDo(print())*/
+                 /*.andDo(print())*/
                 .andExpect(status().isOk());
     }
     
 }
+    
